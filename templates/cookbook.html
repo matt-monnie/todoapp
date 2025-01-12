@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Cookbook</h1>
+
+    <button id="toggle-form">Enter New Recipe</button>
+    <div id="recipe-form" style="display:none;">
+        <form method="POST">
+            <div class="form-group">
+                <label for="recipe_name">Recipe Name</label>
+                <input type="text" id="recipe_name" name="recipe_name" placeholder="Recipe Name" required>
+            </div>
+            <div id="ingredients-section" class="form-group">
+                <label for="ingredient">Ingredients</label>
+                <div class="ingredient">
+                    <input type="text" name="ingredient_quantity[]" placeholder="Quantity" required>
+                    <select name="ingredient_unit[]">
+                        <option value="g">g</option>
+                        <option value="ml">ml</option>
+                        <option value="oz">oz</option>
+                        <option value="tsp">tsp</option>
+                        <option value="tbsp">tbsp</option>
+                        <option value="cup">cup</option>
+                        <!-- Add more units as needed -->
+                    </select>
+                    <input type="text" name="ingredient_name[]" placeholder="Ingredient" required>
+                </div>
+            </div>
+            <button type="button" id="add-ingredient">Add Ingredient</button>
+            <div class="form-group">
+                <label for="directions">Directions</label>
+                <textarea id="directions" name="directions" placeholder="Directions" required></textarea>
+            </div>
+            <button type="submit">Add Recipe</button>
+        </form>
+    </div>
+
+    <ul class="recipe-list">
+        {% for recipe in recipes %}
+            <li>
+                <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}">{{ recipe.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div id="recipe-details" style="display:none;">
+        <h2 id="recipe-title"></h2>
+        <h3>Ingredients</h3>
+        <ul id="ingredients-list"></ul>
+        <h3>Directions</h3>
+        <p id="directions-text"></p>
+    </div>
+{% endblock %}

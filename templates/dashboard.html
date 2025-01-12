@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Dashboard</h1>
+    <canvas id="tasksChart"></canvas>
+    <script>
+        var ctx = document.getElementById('tasksChart').getContext('2d');
+        var completedTasks = {{ completed_tasks }};
+        var pendingTasks = {{ pending_tasks }};
+
+        var tasksChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Completed Tasks', 'Pending Tasks'],
+                datasets: [{
+                    data: [completedTasks, pendingTasks],
+                    backgroundColor: ['#28a745', '#dc3545']
+                }]
+            }
+        });
+    </script>
+{% endblock %}

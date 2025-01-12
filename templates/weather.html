@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Weather in {{ weather.name }}</h1>
+    <p>Temperature: {{ weather.main.temp }}°F</p>
+    <p>Weather: {{ weather.weather[0].description }}</p>
+{% endblock %}
